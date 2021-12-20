@@ -25,7 +25,8 @@ Public :
 
 Overloading:
 
-- [ ] > > stream extraction operator to read array elements from file[ifstream]
+- [x] << stream insertion operator to write array elements to a file [ofstream]
+- [x] > > stream extraction operator to read array elements from file[ifstream]
       > > and then adds them to the array
 
 ---
@@ -85,7 +86,6 @@ My Notes (from the example):
 - Front reverses the array
 - Positive omits the negative and the zeros
 - Negative omits the positive and the zeros
-- may need to overload the insertion operator to write to another text file
 
 ---
 

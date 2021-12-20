@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 
 using namespace std;
@@ -15,6 +16,9 @@ public:
     void printIt();
     //ofstream overloading
     //ifstream overloading
+    friend void operator >>(ifstream&,FloatArray**);
+    friend ofstream& operator<<(ofstream& outFile,FloatArray** ArrayOfPointers);
+    
     ~FloatArray();
 };
 FloatArray::FloatArray(int arraySize){
@@ -31,8 +35,9 @@ void FloatArray::add(float floatElement){
 // (delete/comment it) V
 void FloatArray::printIt(){
     for(int i = 0 ; i < arraySize_ ; i++){
-        cout<< floats_[i]<<endl;
+        cout<< floats_[i]<<" ";
     }
+    cout<<endl;
 }
 ////
 FloatArray::~FloatArray(){
@@ -44,39 +49,104 @@ FloatArray::~FloatArray(){
 
 class SortedArray : public FloatArray {
 public:
-    SortedArray(int);
-    void add(float);
+    SortedArray(int arraySize):FloatArray(arraySize){};
+    void add(float floatElement){
+        FloatArray::add(floatElement);
+    };
 };
 
 class FrontArray : public FloatArray {
 public:
-    FrontArray(int);
-    void add(float);
+    FrontArray(int arraySize):FloatArray(arraySize){};
+    void add(float floatElement){
+        FloatArray::add(floatElement);
+    };
 };
 
 class PositiveArray : public FrontArray {
 public:
-    PositiveArray(int);
-    void add(float);
+    PositiveArray(int arraySize):FrontArray(arraySize){};
+    void add(float floatElement){
+        FrontArray::add(floatElement);
+    };
 };
 
 class NegativeArray : public FrontArray {
 public:
-    NegativeArray(int);
-    void add(float);
+    NegativeArray(int arraySize):FrontArray(arraySize){};
+    void add(float floatElement){
+        FrontArray::add(floatElement);
+    };
 };
 
-
+void operator>>(ifstream& inFile,FloatArray** ArrayOfPointers){
+    
+    int size;
+    string type;
+    float element;
+    FloatArray* pointerToObject;
+    while(!inFile.eof()){
+        for(int i=0;i<10;i++){
+        
+            inFile>>type;
+            inFile>>size;
+            if(type=="Array"){
+                pointerToObject=new FloatArray(size);
+            }
+            else if(type=="Sorted"){
+                pointerToObject=new SortedArray(size);
+            }
+            else if(type=="Front"){
+                pointerToObject=new FrontArray(size);
+            }
+            else if(type=="Positive"){
+                pointerToObject=new PositiveArray(size);
+            }
+            else if(type=="Negative"){
+                pointerToObject=new NegativeArray(size);
+            }
+            for(int j=0;j<size;j++){
+                
+                inFile>>element;
+                pointerToObject->add(element);
+            }
+            ArrayOfPointers[i]=pointerToObject;
+            ArrayOfPointers[i]->printIt();
+            
+            
+        
+        
+        pointerToObject=0;
+        }
+    }
+    
+}
+ofstream& operator<<(ofstream& outFile,FloatArray** ArrayOfPointers){
+    
+    for(int i=0;i<10;i++){
+        outFile<<ArrayOfPointers[i]->arraySize_<<"|   ";
+        for(int j=0;j<ArrayOfPointers[i]->arraySize_;j++){ 
+                outFile<<ArrayOfPointers[i]->floats_[j]<<"   ";
+        }
+        outFile<<"\n";
+    }
+    return outFile;
+}
 int main() {
     // cout << "Enter the name of the input file:" << endl;
     // cout << "Enter the name of the output file:" << endl;
-
-    //Testing
-    FloatArray fa1(2);
-    fa1.add(3.3);
-    fa1.add(4.55);
-    fa1.add(6.2);//Won't be added as the size is only 2
-    fa1.printIt();//Just a print function (delete/comment it)
+    ifstream inFile;
+    inFile.open("in.txt");
+    FloatArray* ArrayOfPointers[10];
+    inFile>>ArrayOfPointers;
+    inFile.close();
+    cout<<"\n\n"<<endl;
+    
+    ofstream outFile;
+    outFile.open("MyOut.txt");
+    outFile<<ArrayOfPointers;
+    outFile.close();
+    
 
     return 0;
 }
