@@ -76,11 +76,28 @@ void SortedArray::add(float floatElement) {
 
 class FrontArray : public FloatArray {
 public:
-    FrontArray(int arraySize):FloatArray(arraySize){};
-    void add(float floatElement){
-        FloatArray::add(floatElement);
-    };
+    FrontArray(int);
+    void add(float);
 };
+
+FrontArray::FrontArray(int arraySize):FloatArray(arraySize){}
+
+
+void FrontArray::add(float floatElement) {
+    int shifter = 0;
+    if (indexCursor_ == 0) {
+        FloatArray::add(floatElement);
+    }
+    else {
+        for (int i = indexCursor_; i > shifter; i--) {
+            floats_[i] = floats_[i-1];
+        }
+        floats_[shifter] = floatElement;
+        shifter++;
+        indexCursor_++;
+    }
+}
+
 
 class PositiveArray : public SortedArray {
 public:
