@@ -26,18 +26,18 @@ public:
     ~FloatArray();
 };
 
-FloatArray::FloatArray(int arraySize){
+FloatArray::FloatArray(int arraySize){      //Definition of constructor
     arraySize_ = arraySize;
     floats_ = new float[arraySize_];
 }
-void FloatArray::add(float floatElement){
+void FloatArray::add(float floatElement){   //Definition of add member function
     if(indexCursor_ < arraySize_){
         floats_[indexCursor_]=floatElement;
         indexCursor_++;
     }
 }
 
-FloatArray::~FloatArray(){
+FloatArray::~FloatArray(){      //Definition of destructor
     delete [] floats_;
     floats_ = 0;
 }
@@ -55,16 +55,16 @@ SortedArray::SortedArray(int arraySize):FloatArray(arraySize){};
 
 void SortedArray::add(float floatElement) {
     int insertPos = indexCursor_;
-    for (int i = indexCursor_; i >= 0; i--) {
+    for (int i = indexCursor_; i >= 0; i--) {       //Loop to find out the position where the number should be inserted
         if (floatElement < floats_[i]) {
             insertPos = i;
         }
     }
-    if ((indexCursor_ == 0) || (indexCursor_ == insertPos)) {
+    if ((indexCursor_ == 0) || (indexCursor_ == insertPos)) {       //Conditional statement to check if the float should be inserted at the beginning or end
         FloatArray::add(floatElement);
     }
     else if (indexCursor_ < arraySize_){
-        for (int i = indexCursor_; i > insertPos; i--) {
+        for (int i = indexCursor_; i > insertPos; i--) {        //Loop to shift elements one position to allow for insertion of float in the correct position
             floats_[i] = floats_[i-1];
         }
         floats_[insertPos] = floatElement;
@@ -88,7 +88,7 @@ void FrontArray::add(float floatElement) {
         FloatArray::add(floatElement);
     }
     else {
-        for (int i = indexCursor_; i > shifter; i--) {
+        for (int i = indexCursor_; i > shifter; i--) {      //Loop to bring elements to the front
             floats_[i] = floats_[i-1];
         }
         floats_[shifter] = floatElement;
@@ -107,10 +107,10 @@ public:
 PositiveArray::PositiveArray(int arraySize):SortedArray(arraySize){}
 
 void PositiveArray::add(float floatElement) {
-    if (floatElement <= 0) {
+    if (floatElement <= 0) {        //Conditional statement to deduct the count of negative values or zeros
         arraySize_--;
     }
-    else
+    else                            //Conditional statement to add the positive values to the array
         SortedArray::add(floatElement);
 }
 //-------------------------------------------------------
@@ -124,10 +124,10 @@ public:
 NegativeArray::NegativeArray(int arraySize):SortedArray(arraySize){}
 
 void NegativeArray::add(float floatElement) {
-    if (floatElement >= 0) {
+    if (floatElement >= 0) {        //Conditional statement to deduct the count of positive values or zeros
         arraySize_--;
     }
-    else
+    else                            //Conditional statement to add the negative values to the array
         SortedArray::add(floatElement);
 }
 //-------------------------------------------------------
@@ -215,7 +215,8 @@ int main() {
     }
     outFile << ArrayOfPointers;
     outFile.close();
-
+//---------------------------------------------------------------
+/*Deallocation and deletion of objects*/
     for(int i = 0; i < 10 ; i++){
         delete ArrayOfPointers[i];
     }
