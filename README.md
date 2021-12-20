@@ -35,8 +35,8 @@ Overloading:
 
 Public :
 
-- [ ] parameterized constructor [arraySize] [Will call the FloatArray Constructor instead of setting it inside]
-- [ ] add method [adds a float at the right place [the place that makes the array sorted]]
+- [x] parameterized constructor [arraySize] [Will call the FloatArray Constructor instead of setting it inside]
+- [x] add method [adds a float at the right place [the place that makes the array sorted]]
 - Note: In the add method,_don't_ add the float and then sort the array
 
 ---
@@ -45,8 +45,8 @@ Public :
 
 Public :
 
-- [ ] parameterized constructor [arraySize] [Will call the FloatArray Constructor instead of setting it inside]
-- [ ] add method [adds a float at the front of the array]
+- [x] parameterized constructor [arraySize] [Will call the FloatArray Constructor instead of setting it inside]
+- [x] add method [adds a float at the front of the array]
 
 ---
 
@@ -54,8 +54,8 @@ Public :
 
 Public :
 
-- [ ] parameterized constructor [arraySize] [Will call the FloatArray Constructor instead of setting it inside]
-- [ ] add method
+- [x] parameterized constructor [arraySize] [Will call the FloatArray Constructor instead of setting it inside]
+- [x] add method
 - [adds a float only if it is a positive number
 - _Then_ uses the add method of SortedArray]
 
@@ -65,8 +65,8 @@ Public :
 
 Public :
 
-- [ ] parameterized constructor [arraySize] [Will call the FloatArray Constructor instead of setting it inside]
-- [ ] add method
+- [x] parameterized constructor [arraySize] [Will call the FloatArray Constructor instead of setting it inside]
+- [x] add method
 - [adds a float only if it is a negative number
 - _Then_ uses the add method of SortedArray]
 
