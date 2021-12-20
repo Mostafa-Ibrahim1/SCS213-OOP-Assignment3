@@ -54,35 +54,21 @@ public:
 };
 
 void SortedArray::add(float floatElement) {
-    int minIndex = 999;
-    for (int i = 0; i < indexCursor_; i++) {
-        if (floats_[i] < minIndex)
-            minIndex = i;
+    int insertPos = indexCursor_;
+    for (int i = indexCursor_; i >= 0; i--) {
+        if (floatElement < floats_[i]) {
+            insertPos = i;
+        }
     }
-    if(indexCursor_ < arraySize_){
-        if (indexCursor_ == 0) {
-            floats_[0] = floatElement;
-            indexCursor_++;
+    if ((indexCursor_ == 0) || (indexCursor_ == insertPos)) {
+        FloatArray::add(floatElement);
+    }
+    else if (indexCursor_ < arraySize_){
+        for (int i = indexCursor_; i > insertPos; i--) {
+            floats_[i] = floats_[i-1];
         }
-        else {
-            if (floats_[minIndex] > floatElement) {
-                int j = indexCursor_;
-                indexCursor_++;
-
-                while (j > minIndex) {
-                    floats_[j] = floats_[j-1];
-                    j--;
-                }
-                floats_[minIndex] = floatElement;
-            }
-            else {
-                if(indexCursor_ < arraySize_){
-                    floats_[indexCursor_]=floatElement;
-                    indexCursor_++;
-                }
-            }
-
-        }
+        floats_[insertPos] = floatElement;
+        indexCursor_++;
     }
 }
 
