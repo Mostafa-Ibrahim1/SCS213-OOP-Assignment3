@@ -49,9 +49,11 @@ FloatArray::~FloatArray(){
 
 class SortedArray : public FloatArray {
 public:
-    SortedArray(int arraySize):FloatArray(arraySize){};
-    void add(float floatElement);
+    SortedArray(int);
+    void add(float);
 };
+
+SortedArray::SortedArray(int arraySize):FloatArray(arraySize){};
 
 void SortedArray::add(float floatElement) {
     int insertPos = indexCursor_;
@@ -80,21 +82,37 @@ public:
     };
 };
 
-class PositiveArray : public FrontArray {
+class PositiveArray : public SortedArray {
 public:
-    PositiveArray(int arraySize):FrontArray(arraySize){};
-    void add(float floatElement){
-        FrontArray::add(floatElement);
-    };
+    PositiveArray(int);
+    void add(float);
 };
 
-class NegativeArray : public FrontArray {
+PositiveArray::PositiveArray(int arraySize):SortedArray(arraySize){}
+
+void PositiveArray::add(float floatElement) {
+    if (floatElement <= 0) {
+        arraySize_--;
+    }
+    else
+        SortedArray::add(floatElement);
+}
+
+class NegativeArray : public SortedArray {
 public:
-    NegativeArray(int arraySize):FrontArray(arraySize){};
-    void add(float floatElement){
-        FrontArray::add(floatElement);
-    };
+    NegativeArray(int);
+    void add(float);
 };
+
+NegativeArray::NegativeArray(int arraySize):SortedArray(arraySize){}
+
+void NegativeArray::add(float floatElement) {
+    if (floatElement >= 0) {
+        arraySize_--;
+    }
+    else
+        SortedArray::add(floatElement);
+}
 
 void operator>>(ifstream& inFile,FloatArray** ArrayOfPointers){
 
