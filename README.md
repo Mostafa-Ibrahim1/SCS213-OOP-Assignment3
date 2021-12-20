@@ -2,11 +2,11 @@
 
 ## Classes:
 
-- [ ] FloatArray
-- [ ] SortedArray
-- [ ] FrontArray
-- [ ] PositiveArray
-- [ ] NegativeArray
+- [x] FloatArray
+- [x] SortedArray
+- [x] FrontArray
+- [x] PositiveArray
+- [x] NegativeArray
 
 ---
 
