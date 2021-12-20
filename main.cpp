@@ -199,7 +199,7 @@ int main() {
     ifstream inFile;
     inFile.open(inputFileName);
     if(inFile.fail()){
-        cerr << "Error Opening File!" << endl;
+        cerr << "Error Opening Input File!" << endl;
         exit(1);
     }
     FloatArray* ArrayOfPointers[10];
@@ -210,7 +210,7 @@ int main() {
     ofstream outFile;
     outFile.open(outputFileName);
     if(outFile.fail()){
-        cerr << "Error Opening File!" << endl;
+        cerr << "Error Opening Output File!" << endl;
         exit(1);
     }
     outFile << ArrayOfPointers;
