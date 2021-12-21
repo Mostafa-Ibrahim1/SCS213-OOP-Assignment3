@@ -139,39 +139,41 @@ void operator>>(ifstream& inFile,FloatArray** ArrayOfPointers){
     string type;
     float element;
     FloatArray* pointerToObject;
-    while(!inFile.eof()){
-        for(int i=0;i<10;i++){
-
-            inFile >> type;
-            inFile >> size;
-            if(type == "Array"){
-                pointerToObject = new FloatArray(size);
-            }
-            else if(type == "Sorted"){
-                pointerToObject = new SortedArray(size);
-            }
-            else if(type == "Front"){
-                pointerToObject = new FrontArray(size);
-            }
-            else if(type == "Positive"){
-                pointerToObject = new PositiveArray(size);
-            }
-            else if(type == "Negative"){
-                pointerToObject = new NegativeArray(size);
-            }
-            for(int j = 0; j < size; j++){
-
-                inFile >> element;
-                pointerToObject->add(element);
-            }
-            ArrayOfPointers[i] = pointerToObject;
-
-
-
-
-        pointerToObject = 0;
+    
+    for(int i=0;i<10;i++){
+        if(inFile.eof()){
+                break;
         }
+        inFile >> type;
+        inFile >> size;
+        if(type == "Array"){
+            pointerToObject = new FloatArray(size);
+        }
+        else if(type == "Sorted"){
+            pointerToObject = new SortedArray(size);
+        }
+        else if(type == "Front"){
+            pointerToObject = new FrontArray(size);
+        }
+        else if(type == "Positive"){
+            pointerToObject = new PositiveArray(size);
+        }
+        else if(type == "Negative"){
+            pointerToObject = new NegativeArray(size);
+        }
+        for(int j = 0; j < size; j++){
+
+            inFile >> element;
+            pointerToObject->add(element);
+        }
+        ArrayOfPointers[i] = pointerToObject;
+
+
+
+
+    pointerToObject = 0;
     }
+    
 
 }
 
@@ -180,9 +182,9 @@ void operator>>(ifstream& inFile,FloatArray** ArrayOfPointers){
 ofstream& operator<<(ofstream& outFile, FloatArray** ArrayOfPointers){
 
     for(int i = 0; i < 10; i++){
-        outFile << ArrayOfPointers[i]->arraySize_ << "|   ";
+        outFile << ArrayOfPointers[i]->arraySize_ << "|\t";
         for(int j = 0; j < ArrayOfPointers[i]->arraySize_; j++){
-                outFile << ArrayOfPointers[i]->floats_[j] << "   ";
+                outFile << ArrayOfPointers[i]->floats_[j] << "\t";
         }
         outFile << "\n";
     }
@@ -220,6 +222,6 @@ int main() {
     for(int i = 0; i < 10 ; i++){
         delete ArrayOfPointers[i];
     }
-    delete [] ArrayOfPointers;
+    
     return 0;
 }
