@@ -139,11 +139,9 @@ void operator>>(ifstream& inFile,FloatArray** ArrayOfPointers){
     string type;
     float element;
     FloatArray* pointerToObject;
-    // while(!inFile.eof()){
+    while(!inFile.eof()){
         for(int i=0;i<10;i++){
-            if(inFile.eof()){
-                break;
-            }
+
             inFile >> type;
             inFile >> size;
             if(type == "Array"){
@@ -173,7 +171,7 @@ void operator>>(ifstream& inFile,FloatArray** ArrayOfPointers){
 
         pointerToObject = 0;
         }
-    // }
+    }
 
 }
 
@@ -182,9 +180,9 @@ void operator>>(ifstream& inFile,FloatArray** ArrayOfPointers){
 ofstream& operator<<(ofstream& outFile, FloatArray** ArrayOfPointers){
 
     for(int i = 0; i < 10; i++){
-        outFile << ArrayOfPointers[i]->arraySize_ << "|\t";
+        outFile << ArrayOfPointers[i]->arraySize_ << "|   ";
         for(int j = 0; j < ArrayOfPointers[i]->arraySize_; j++){
-                outFile << ArrayOfPointers[i]->floats_[j] << "\t";
+                outFile << ArrayOfPointers[i]->floats_[j] << "   ";
         }
         outFile << "\n";
     }
