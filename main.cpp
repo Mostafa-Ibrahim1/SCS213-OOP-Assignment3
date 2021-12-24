@@ -221,6 +221,7 @@ int main() {
 /*Deallocation and deletion of objects*/
     for(int i = 0; i < 10 ; i++){
         delete ArrayOfPointers[i];
+        ArrayOfPointers[i]=0;
     }
     
     return 0;
